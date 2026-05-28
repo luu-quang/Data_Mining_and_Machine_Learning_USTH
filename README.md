@@ -83,3 +83,67 @@ based on:
 ---
 
 ## 📂 Project Structure
+
+
+## Pipeline
+[ RAW DATA ENTRANCE ]
+                 │
+                 ▼
+┌─────────────────────────────────┐
+│     00_convert_format.py        │  ◄── [STEP 1: INGESTION OPTIMIZATION]
+│  • Load Raw CSV (12.7M Rows)     │      • Eliminates I/O bottleneck
+│  • Apply Snappy Compression     │      • Slashes load time from 185s to 6s
+│  • Convert to Columnar Parquet  │
+└─────────────────────────────────┘
+                 │
+                 ▼
+┌─────────────────────────────────┐
+│     01_eda_and_cleaning.py      │  ◄── [STEP 2: THE SPLIT-BEFORE-RESAMPLE RULE]
+│  • train_test_split (80 / 20)   │      • Isolates 2.54M Test rows completely
+└─────────────────────────────────┘      • ZERO LOOK-AHEAD BIAS (No Data Leakage)
+        │                 │
+        ▼ (Train: 10.1M)  ▼ (Test: 2.54M - Isolated)
+┌─────────────────────────────────┐
+│     01_eda_and_cleaning.py      │  ◄── [STEP 3: ROBUST LÀM SẠCH]
+│  • Calculate Train Medians      │      • Outlier Capping on 'renta' via 3-Sigma
+│  • Impute Missing 'age' & 'renta'│      • Test set uses strictly TRAIN parameters
+└─────────────────────────────────┘
+                 │
+                 ▼
+┌─────────────────────────────────┐
+│  03_supervised_modeling_...     │  ◄── [STEP 4: TEMPORAL FEATURE MOMENTUM]
+│  • Create Lag 1, 2, 3 Months    │      • Captures behavior velocity via .shift()
+│  • Calculate Momentum Vector     │      • Converts static rows to time-series paths
+└─────────────────────────────────┘
+                 │
+                 ▼
+┌─────────────────────────────────┐
+│  03_supervised_modeling_...     │  ◄── [STEP 5: DENSE TRAINING SUBSAMPLING]
+│  • Sample down to 1.5M Rows     │      • Eliminates redundant background noise
+│  • (Test Set remains untouched)  │      • Accelerates training speed by 10x
+└─────────────────────────────────┘
+                 │
+                 ▼
+┌─────────────────────────────────┐
+│  02_feature_extraction_pca.py   │  ◄── [STEP 6: SPATIAL FEATURE FUSION]
+│  • StandardScaler (.fit_transform)│      • Mandatory Z-score to balance scales
+│  • Extract 19 PCA Components    │      • Retains >85% variance, erases collinearity
+└─────────────────────────────────┘
+                 │
+                 ▼
+┌─────────────────────────────────┐
+│  03_supervised_modeling_...     │  ◄── [STEP 7: PRODUCTION MULTI-LABEL ENGINE]
+│  • One-Vs-Rest (OVR) Wrapper    │      • Instantiates 5 parallel tree systems
+│  • Balanced Random Forest       │      • Pre-pruned (depth=10, min_split=10)
+└─────────────────────────────────┘      • n_jobs=-1 finishes training in 487.83s
+                 │
+                 ▼
+┌─────────────────────────────────┐
+│       [ EVALUATION LAYER ]      │  ◄── [STEP 8: PROBABILISTIC RANKING OUTCOME]
+│  • Pull predict_proba() continuous arrays (Bypasses hard 50% threshold)
+│  • Final Asset Metrics Locked Down:
+│    ┌───────────────────────────┬───────────────────────────┐
+│    │  MAP@5 Ranking  : 0.7271  │  Global Accuracy: 95.50%  │
+│    │  Macro F1-Score : 0.9325  │  Global MAE     : 0.0107  │
+│    └───────────────────────────┴───────────────────────────┘
+└─────────────────────────────────┘
