@@ -82,6 +82,7 @@ based on:
 
 ---
 
-## 📂 Project Structure
+## 📂 Pipeline
+<img width="1902" height="8192" alt="pipeline_flowchart" src="https://github.com/user-attachments/assets/c5199adf-08be-4adb-b8f6-672936995a39" />
 
 
