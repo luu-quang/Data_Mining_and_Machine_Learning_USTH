@@ -1,6 +1,6 @@
-# 🏦 Product Recommendation System for Banking
+#  Product Recommendation System for Banking
 
-## 📖 Overview
+##  Overview
 This project focuses on building a **personalized product recommendation system** for a retail bank.  
 The goal is to predict which financial products a customer is most likely to purchase next, based on their historical behavior.
 
@@ -11,7 +11,7 @@ The system helps:
 
 ---
 
-## 🎯 Objectives
+##  Objectives
 - Analyze customer behavior and financial activity
 - Build a predictive model for product recommendation
 - Generate personalized product suggestions for each customer
@@ -19,7 +19,7 @@ The system helps:
 
 ---
 
-## 📊 Dataset
+##  Dataset
 The dataset contains **1.5 years of customer behavior data** from Santander Bank.
 
 - Time range: **Jan 2015 → May 2016**
@@ -28,15 +28,15 @@ The dataset contains **1.5 years of customer behavior data** from Santander Bank
   - Customer information (age, income, segment, etc.)
   - Product ownership (credit card, savings account, etc.)
 
-### 🧩 Prediction Task
+###  Prediction Task
 Predict which **new products** a customer will add in:
-- 📅 May 2016  
+-  May 2016  
 based on:
-- 📅 April 2016 data
+-  April 2016 data
 
 ---
 
-## ⚙️ Project Workflow
+##  Project Workflow
 
 ### 1. Data Exploration & Cleaning
 - Handle missing values
@@ -66,7 +66,7 @@ based on:
 
 ---
 
-## 🧠 Technologies Used
+##  Technologies Used
 - Python
 - Pandas, NumPy
 - Scikit-learn
@@ -75,14 +75,14 @@ based on:
 
 ---
 
-## 📈 Results
+##  Results
 - Built a recommendation model that predicts customer needs
 - Improved targeting of financial products
 - Enabled more balanced product exposure across customers
 
 ---
 
-## 📂 Pipeline
+##  Pipeline
 <img width="1902" height="8192" alt="pipeline_flowchart" src="https://github.com/user-attachments/assets/c5199adf-08be-4adb-b8f6-672936995a39" />
 
 
