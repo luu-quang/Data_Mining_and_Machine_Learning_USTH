@@ -7,7 +7,7 @@ The goal is to predict which financial products a customer is most likely to pur
 The system helps:
 - Improve customer experience
 - Increase engagement and satisfaction
-- Optimize cross-selling and up-selling strategies
+- Optimize cross-selling and up-selling strategies 
 
 ---
 
